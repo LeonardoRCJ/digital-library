@@ -8,6 +8,7 @@ import tech.devleo.digital_library.entities.book.BookUpdateDTO;
 import tech.devleo.digital_library.services.BookService;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -30,6 +31,11 @@ public class BookController {
     public ResponseEntity<BookResponseDTO> getBookByIsbn(@PathVariable("isbn") String isbn){
         var book = service.getBookByIsbn(isbn);
         return ResponseEntity.ok(book);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<BookResponseDTO>> getAllBooks(){
+        return ResponseEntity.ok(service.getAllBooks());
     }
 
     @PutMapping("/{bookId}")

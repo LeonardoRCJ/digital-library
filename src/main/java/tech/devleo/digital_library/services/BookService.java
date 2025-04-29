@@ -2,12 +2,15 @@ package tech.devleo.digital_library.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tech.devleo.digital_library.entities.book.Book;
 import tech.devleo.digital_library.entities.book.BookDTO;
 import tech.devleo.digital_library.entities.book.BookResponseDTO;
 import tech.devleo.digital_library.entities.book.BookUpdateDTO;
 import tech.devleo.digital_library.exception.BookNotFoundException;
 import tech.devleo.digital_library.exception.DuplicateBookException;
 import tech.devleo.digital_library.repositories.BookRepository;
+
+import java.util.List;
 
 @Service
 public class BookService {
@@ -16,6 +19,12 @@ public class BookService {
 
     public BookService(BookRepository repository) {
         this.repository = repository;
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<BookResponseDTO> getAllBooks(){
+        return repository.findAll().stream().map(BookResponseDTO::new).toList();
     }
 
     @Transactional

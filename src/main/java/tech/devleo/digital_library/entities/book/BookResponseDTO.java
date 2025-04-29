@@ -1,7 +1,7 @@
 package tech.devleo.digital_library.entities.book;
 
-public record BookResponseDTO(Long bookId, String title, String isbn, String author, String publisher, String description) {
+public record BookResponseDTO(Long bookId, String title, String isbn, String author, String publisher, String description, BookType bookType, String imageUrl) {
     public BookResponseDTO(Book book){
-        this(book.getBookId(), book.getTitle(), book.getIsbn(), book.getAuthor(), book.getPublisher(), book.getDescription());
+        this(book.getBookId(), book.getTitle(), book.getIsbn(), book.getAuthor(), book.getPublisher(), book.getDescription(), book.getBookType(), book.getImageUrl());
     }
 }
