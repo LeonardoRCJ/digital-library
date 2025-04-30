@@ -82,6 +82,12 @@ public class User {
         this.userType = userType;
     }
 
+    public void tradePassword(UserUpdateDTO updateDTO){
+        if (updateDTO.password() == null) {
+            throw new IllegalArgumentException("for the update, the password can't be null");
+        }
+        this.setPassword(updateDTO.password());
+    }
 
 }
 
