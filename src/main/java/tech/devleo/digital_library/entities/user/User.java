@@ -12,6 +12,8 @@ public class User {
     private UUID userId;
     @Column(nullable = false)
     private String fullName;
+    @Column(nullable = false, unique = true)
+    private String cpf;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
@@ -60,15 +62,26 @@ public class User {
         this.userType = userType;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public User() {
     }
 
-    public User(UUID userId, String fullName, String email, String password, UserType userType) {
+    public User(UUID userId, String fullName, String cpf, String email, String password, UserType userType) {
         this.userId = userId;
         this.fullName = fullName;
+        this.cpf = cpf;
         this.email = email;
         this.password = password;
         this.userType = userType;
     }
+
+
 }
 
