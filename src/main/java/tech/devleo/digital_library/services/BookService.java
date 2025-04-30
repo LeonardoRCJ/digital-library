@@ -63,16 +63,6 @@ public class BookService {
             throw new IllegalArgumentException("At least one field must be provided for update.");
         }
 
-
-        if (bookUpdateDTO.title() != null){
-            bookForUpdate.setTitle(bookUpdateDTO.title());
-        }
-
-        if (bookUpdateDTO.imageUrl() != null){
-            bookForUpdate.setImageUrl(bookUpdateDTO.imageUrl());
-        }
-
-
         bookForUpdate.applyUpdates(bookUpdateDTO);
     }
 
