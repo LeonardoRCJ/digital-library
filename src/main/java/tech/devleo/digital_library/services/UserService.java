@@ -36,7 +36,7 @@ public class UserService {
 
         var user = dto.toEntity();
 
-        return user.getUserId();
+        return repository.save(user).getUserId();
     }
 
     @Transactional(readOnly = true)
