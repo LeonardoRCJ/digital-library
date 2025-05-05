@@ -1,4 +1,4 @@
-package tech.devleo.digital_library.exception;
+package tech.devleo.digital_library.entities.book.exceptions;
 
 public class BookNotFoundException extends RuntimeException {
     public BookNotFoundException(String message) {

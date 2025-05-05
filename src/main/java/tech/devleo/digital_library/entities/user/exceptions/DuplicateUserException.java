@@ -1,4 +1,4 @@
-package tech.devleo.digital_library.exception;
+package tech.devleo.digital_library.entities.user.exceptions;
 
 public class DuplicateUserException extends RuntimeException {
     public DuplicateUserException(String message) {
