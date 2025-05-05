@@ -1,4 +1,4 @@
-package tech.devleo.digital_library;
+package tech.devleo.digital_library.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +16,7 @@ public class SecurityConfig {
                         .frameOptions(frame -> frame.disable()) // ✅ forma atual sem deprecation
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/*").permitAll()
                         .anyRequest().permitAll()
                 )
                 .build();
