@@ -2,6 +2,8 @@ package tech.devleo.digital_library.entities.book;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -23,11 +25,12 @@ public class Book {
     private BookType bookType;
     @Column(nullable = false, length = 500)
     private String imageUrl;
-
+    @Column(nullable = false)
+    private BigDecimal price;
     public Book() {
     }
 
-    public Book(Long bookId, String title, String isbn, String author, String publisher, String description, BookType bookType, String imageUrl) {
+    public Book(Long bookId, String title, String isbn, String author, String publisher, String description, BookType bookType, String imageUrl, BigDecimal price) {
         this.bookId = bookId;
         this.title = title;
         this.isbn = isbn;
@@ -36,6 +39,7 @@ public class Book {
         this.description = description;
         this.bookType = bookType;
         this.imageUrl = imageUrl;
+        this.price = price;
     }
 
     public Long getBookId() {
@@ -102,12 +106,23 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     public void applyUpdates(BookUpdateDTO updateDTO) {
-        if (updateDTO.title() != null) {
+        if (!updateDTO.title().isEmpty()) {
             this.setTitle(updateDTO.title());
         }
-        if (updateDTO.imageUrl() != null) {
+        if (!updateDTO.imageUrl().isEmpty()) {
             this.setImageUrl(updateDTO.imageUrl());
+        }
+        if (!(updateDTO.price() == null)) {
+            this.setPrice(updateDTO.price());
         }
     }
 }

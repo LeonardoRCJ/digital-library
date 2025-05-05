@@ -20,6 +20,7 @@ public class BookController {
         this.service = service;
     }
 
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<Void> saveBook(@RequestBody BookDTO bookDTO){
         Long bookId = service.saveBook(bookDTO);
@@ -27,17 +28,20 @@ public class BookController {
        return ResponseEntity.created(URI.create("/api/v1/books/" + bookId)).build();
     }
 
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping("/{isbn}")
     public ResponseEntity<BookResponseDTO> getBookByIsbn(@PathVariable("isbn") String isbn){
         var book = service.getBookByIsbn(isbn);
         return ResponseEntity.ok(book);
     }
 
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @GetMapping()
     public ResponseEntity<List<BookResponseDTO>> getAllBooks(){
         return ResponseEntity.ok(service.getAllBooks());
     }
 
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PutMapping("/{bookId}")
     public ResponseEntity<Void> updateBookById(@PathVariable("bookId") Long bookId, @RequestBody BookUpdateDTO bookUpdateDTO){
         service.updateBookById(bookId, bookUpdateDTO);
@@ -45,6 +49,7 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
+    @CrossOrigin(allowedHeaders = "*", origins = "*")
     @DeleteMapping("/{bookId}")
     public ResponseEntity<Void> deleteBookById(@PathVariable("bookId") Long bookId){
         service.deleteBookById(bookId);

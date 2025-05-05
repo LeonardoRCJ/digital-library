@@ -58,8 +58,8 @@ public class BookService {
     public void updateBookById(Long bookId, BookUpdateDTO bookUpdateDTO){
         var bookForUpdate = repository.findById(bookId).orElseThrow(() -> new BookNotFoundException("Book not found by ID: " + bookId));
 
-        if (bookUpdateDTO.title() == null && bookUpdateDTO.imageUrl() == null) {
-            throw new IllegalArgumentException("At least one field must be provided for update.");
+        if (bookUpdateDTO.title().isEmpty() && bookUpdateDTO.imageUrl().isEmpty()) {
+            throw new IllegalArgumentException("all fields must be filled in");
         }
 
         bookForUpdate.applyUpdates(bookUpdateDTO);
