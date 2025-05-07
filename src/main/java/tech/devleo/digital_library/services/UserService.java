@@ -5,8 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tech.devleo.digital_library.entities.user.UserDTO;
 import tech.devleo.digital_library.entities.user.UserResponseDTO;
 import tech.devleo.digital_library.entities.user.UserUpdateDTO;
-import tech.devleo.digital_library.exception.DuplicateUserException;
-import tech.devleo.digital_library.exception.UserNotFoundException;
+import tech.devleo.digital_library.entities.user.exceptions.DuplicateUserException;
+import tech.devleo.digital_library.entities.user.exceptions.UserNotFoundException;
 import tech.devleo.digital_library.repositories.UserRepository;
 
 import java.util.List;

@@ -1,7 +1,9 @@
 package tech.devleo.digital_library.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import tech.devleo.digital_library.entities.book.Book;
 import tech.devleo.digital_library.entities.book.BookDTO;
 import tech.devleo.digital_library.entities.book.BookResponseDTO;
 import tech.devleo.digital_library.entities.book.BookUpdateDTO;
@@ -15,17 +17,20 @@ import java.util.List;
 public class BookController {
 
     private final BookService service;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public BookController(BookService service) {
+    public BookController(BookService service, SimpMessagingTemplate messagingTemplate) {
         this.service = service;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @CrossOrigin(allowedHeaders = "*", origins = "*")
     @PostMapping
     public ResponseEntity<Void> saveBook(@RequestBody BookDTO bookDTO){
-        Long bookId = service.saveBook(bookDTO);
+        var book = service.saveBook(bookDTO);
+        messagingTemplate.convertAndSend("/topic/books", new BookResponseDTO(book));
 
-       return ResponseEntity.created(URI.create("/api/v1/books/" + bookId)).build();
+       return ResponseEntity.created(URI.create("/api/v1/books/" + book.getBookId())).build();
     }
 
     @CrossOrigin(allowedHeaders = "*", origins = "*")
@@ -45,7 +50,6 @@ public class BookController {
     @PutMapping("/{bookId}")
     public ResponseEntity<Void> updateBookById(@PathVariable("bookId") Long bookId, @RequestBody BookUpdateDTO bookUpdateDTO){
         service.updateBookById(bookId, bookUpdateDTO);
-
         return ResponseEntity.noContent().build();
     }
 
@@ -53,6 +57,7 @@ public class BookController {
     @DeleteMapping("/{bookId}")
     public ResponseEntity<Void> deleteBookById(@PathVariable("bookId") Long bookId){
         service.deleteBookById(bookId);
+        messagingTemplate.convertAndSend("/topic/books/delete", bookId.toString());
         return ResponseEntity.noContent().build();
     }
 }
